@@ -45,6 +45,10 @@ def test_model(model, data_dir, dataset_list, scale_list, is_rerank, gemp, rgem,
         Q = torch.tensor(Q).cuda()
         X = torch.tensor(X).cuda()
         
+        print("save extracted feature!")
+        np.save("query.npy", Q.numpy()) 
+        np.save("db.npy", X.numpy())
+        
         print("perform global feature reranking")
         if onemeval:
             X_expand = torch.load(f"./feats_1m_RN{depth}.pth").cuda()
