@@ -27,7 +27,7 @@ def test_model(model, data_dir, dataset_list, scale_list, is_rerank, gemp, rgem,
 
 
     model.load_state_dict(state_dict)
-    for dataset in dataset_list:
+    for dataset in reversed(dataset_list):
         text = '>> {}: Global Retrieval for scale {} with CVNet-Global'.format(dataset, str(scale_list))
         print(text)
         if dataset == 'roxford5k':
@@ -46,8 +46,8 @@ def test_model(model, data_dir, dataset_list, scale_list, is_rerank, gemp, rgem,
         X = torch.tensor(X).cuda()
         
         print("save extracted feature!")
-        np.save("query.npy", Q.cpu().numpy()) 
-        np.save("db.npy", X.cpu().numpy())
+        np.save("./extracted_features/" + dataset + "/query.npy", Q.cpu().numpy()) 
+        np.save("./extracted_features/" + dataset + "/db.npy", X.cpu().numpy())
         
         print("perform global feature reranking")
         if onemeval:
