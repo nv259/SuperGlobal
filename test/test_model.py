@@ -46,8 +46,8 @@ def test_model(model, data_dir, dataset_list, scale_list, is_rerank, gemp, rgem,
         X = torch.tensor(X).cuda()
         
         print("save extracted feature!")
-        np.save("query.npy", Q.numpy()) 
-        np.save("db.npy", X.numpy())
+        np.save("query.npy", Q.cpu().numpy()) 
+        np.save("db.npy", X.cpu().numpy())
         
         print("perform global feature reranking")
         if onemeval:
