@@ -57,7 +57,7 @@ _C.TEST = CfgNode()
 
 _C.TEST.WEIGHTS = ""
 _C.TEST.DATA_DIR = ""
-_C.TEST.DATASET_LIST = ["roxford5k"]
+_C.TEST.DATASET_LIST = ["roxford5k", "rparis6k"]
 _C.TEST.SCALE_LIST = 3
 _C.TEST.TOPK_LIST = [400]
 
@@ -66,7 +66,7 @@ _C.TEST.TOPK_LIST = [400]
 # ------------------------------------------------------------------------------------ #
 _C.DATA_LOADER = CfgNode()
 # Number of data loader workers per process
-_C.DATA_LOADER.NUM_WORKERS = 4
+_C.DATA_LOADER.NUM_WORKERS = 2
 # Load data to pinned host memory
 _C.DATA_LOADER.PIN_MEMORY = True
 
