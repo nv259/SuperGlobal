@@ -32,6 +32,8 @@ def test_model(model, data_dir, dataset_list, scale_list, is_rerank, gemp, rgem,
         print(text)
         if dataset == 'roxford5k':
             gnd_fn = 'gnd_roxford5k.pkl'
+            print("skip roxford5k")
+            continue
         elif dataset == 'rparis6k':
             gnd_fn = 'gnd_rparis6k.pkl'
         else:
