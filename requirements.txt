@@ -1,3 +1,5 @@
 yacs
 flask
 torch
+flask_cors
+opencv-python
