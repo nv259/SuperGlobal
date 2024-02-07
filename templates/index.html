@@ -115,14 +115,14 @@
 
 <body>
 <div class='header'>
-    Image Retrieval
+    IMAGE RETRIEVAL
 </div>
 <div class='content'>
 
     <div class='upload_part'>
-        <button class='upload_button' id="upload_button">Select an image</button>
+        <button class='upload_button' id="upload_button">Select image for retrieval</button>
         <div class='upload_hint' id='upload_hint'>
-                Supported format: PNG, JPG và JPEG.
+                Supported Formats: PNG, JPG and JPEG.
         </div>
         <form action="/" method="POST" enctype="multipart/form-data" id='form'>
             <input type="file" name="file" id="fileinput" style="display: none;" accept="image/*">
@@ -131,21 +131,13 @@
 
     <div class='result_part'>
         {% if msg %}
-        <div class='result_title'><b>Result</b></div>
-        <div class='result_id'>{{ msg }}</div>
-        <!-- {% if ndet > 0 %} -->
-        <!-- <div class='result_id'>Nhận diện được <span class='result_id_number'>{{ ndet }} vật thể</span></div>
-        {% endif %} -->
-        <!-- {% if user_image %} -->
-        
-        <img style="max-width:560px; border-radius:1rem" src="{{ url_for('static', filename=user_image) }}?{{ rand }}"
-             alt="User Image">
+            {% for img_path in ranked_list %}
+                <img src="{{ img_path }}" alt="Image">
         {% endif %}
-        <!-- {% endif %} -->
     </div>
 </div>
 <div class='footer'>
-
+    
 </div>
 
 </body>
