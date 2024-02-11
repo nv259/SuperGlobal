@@ -128,11 +128,12 @@
             <input type="file" name="file" id="fileinput" style="display: none;" accept="image/*">
         </form>
     </div>
-
+    
     <div class='result_part'>
         {% if msg %}
+            <img src="static/query_image.jpg" border="5px solid #eb3480" alt="Image" width="300" height="300">
             {% for img_path in ranked_list %}
-                <img src="{{ img_path }}" alt="Image">
+                <img src="static/{{ img_path }}" alt="Image" width="300" height="300">
             {% endfor %}
         {% endif %}
     </div>

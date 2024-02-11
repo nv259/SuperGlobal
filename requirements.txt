@@ -3,3 +3,5 @@ flask
 torch
 flask_cors
 opencv-python
+faiss-cpu
+lshashpy3
