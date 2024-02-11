@@ -41,7 +41,8 @@ def test_model(model, data_dir, dataset_list, scale_list, is_rerank, gemp, rgem,
         print("extract query features")
         Q = extract_feature(model, data_dir, dataset, gnd_fn, "query", [1.0], gemp, rgem, sgem, scale_list)
         print("extract database features")
-        X = extract_feature(model, data_dir, dataset, gnd_fn, "db", [1.0], gemp, rgem, sgem, scale_list)
+        X = np.load('./db_rparis6k.npy')
+        # X = extract_feature(model, data_dir, dataset, gnd_fn, "db", [1.0], gemp, rgem, sgem, scale_list)
 
         cfg = config_gnd(dataset,data_dir)
         Q = torch.tensor(Q).cuda()
