@@ -55,8 +55,14 @@ def test_model(model, data_dir, dataset_list, scale_list, is_rerank, gemp, rgem,
         if onemeval:
             X_expand = torch.load(f"./feats_1m_RN{depth}.pth").cuda()
             X = torch.concat([X,X_expand],0)
+        
+        start_time = time.time()
+        
         sim = torch.matmul(X, Q.T) # 6322 70
         ranks = torch.argsort(-sim, axis=0) # 6322 70
+        
+        finish_time = time.time()
+        
         if is_rerank:
             rerank_dba_final, res_top1000_dba, ranks_trans_1000_pre, x_dba = MDescAug_obj(X, Q, ranks)
             ranks = RerankwMDA_obj(ranks, rerank_dba_final, res_top1000_dba, ranks_trans_1000_pre, x_dba)
@@ -67,5 +73,5 @@ def test_model(model, data_dir, dataset_list, scale_list, is_rerank, gemp, rgem,
         (mapE, _, _, _), (mapM, _, _, _), (mapH, _, _, _) = test_revisitop(cfg, ks, [ranks, ranks, ranks])
 
         print('Retrieval results: mAP E: {}, M: {}, H: {}'.format(np.around(mapE*100, decimals=2), np.around(mapM*100, decimals=2), np.around(mapH*100, decimals=2)))
-        logger.info('Retrieval results: mAP E: {}, M: {}, H: {}'.format(np.around(mapE*100, decimals=2), np.around(mapM*100, decimals=2), np.around(mapH*100, decimals=2)))
+        logger.info('Retrieval results: mAP E: {}, M: {}, H: {}, time: {}'.format(np.around(mapE*100, decimals=2), np.around(mapM*100, decimals=2), np.around(mapH*100, decimals=2), np.around(finish_time - start_time, decimals=4)))
         

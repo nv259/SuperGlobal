@@ -14,7 +14,8 @@ from config import cfg
 from tqdm import tqdm
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.spatial import KDTree
-# from faiss import IndexFlatL2
+from faiss import IndexFlatL2
+import faiss
 from lshashpy3 import LSHash
 
 
@@ -81,30 +82,18 @@ def index_construction(db, lsis):
             lsh.index(db[i], extra_data=str(i))
         return lsh
     if lsis == 'faiss':
-        pass
-        # index_flat = faiss.IndexFlatL2(db.shape[1])
+        index_flat = IndexFlatL2(db.shape[1])
         
-        # if faiss.get_num_gpus() > 0:
-        #     res = faiss.StandardGpuResources()
-        #     index_flat = faiss.index_cpu_to_gpu(res, 0, index_flat)
-        # index_flat.train(db) 
-        # index_flat.add(db)
+        if faiss.get_num_gpus() > 0:
+            res = faiss.StandardGpuResources()
+            index_flat = faiss.index_cpu_to_gpu(res, 0, index_flat)
+        index_flat.train(db) 
+        index_flat.add(db)
         
-        # return index_flat
+        return index_flat
 
 print("INDEX DATABASE")
 indexed_db = index_construction(db, cfg.LSIS)
-
-
-# def get_image_urls_in_folder():
-#                 image_urls = []
-#                 for filename in os.listdir(folder_path):
-#                     # Kiểm tra nếu tệp tin có phần mở rộng là ảnh (ví dụ: jpg, png, etc.)
-#                     if filename.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
-#                         # Tạo URL bằng cách kết hợp đường dẫn tới thư mục với tên tệp tin ảnh
-#                         url = os.path.join(folder_path, filename)
-#                         image_urls.append(url)
-#                 return image_urls
 
 
 # main route
